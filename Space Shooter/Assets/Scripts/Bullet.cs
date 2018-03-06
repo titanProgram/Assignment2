@@ -12,9 +12,15 @@ public class Bullet : Component {
 	// ---------------------------
 	GameObject bullet;
 
+	// Declaring object for loading a bullet sprite into the game
+	// ----------------------------------------------------------
+	string bulletName;
+	SpriteRenderer renderer;
+	Sprite bulletSprite;
+
 	// Declaring list of bullets
 	// -------------------------
-	private List<Bullet> bullets = new List<Bullet>();
+	private static List<Bullet> bullets = new List<Bullet>(); // Contains all bullets in the game
 
 
 	public Bullet ( float speed, string BulletName ) {
@@ -30,6 +36,21 @@ public class Bullet : Component {
 	}
 
 	private void loadSprite() {
+
+		// creating new game object for the bullet
+		bullet = new GameObject();
+
+		bulletSprite = Resources.Load (bulletName);
+
+		if (bulletSprite == null) {
+
+			Debug.Log ("Failed to load bullet sprite: " + bulletName);
+		} 
+		else {
+
+			renderer = bullet.GetComponent<SpriteRenderer> ();
+			renderer.sprite = bulletSprite;
+		}
 
 	}
 
