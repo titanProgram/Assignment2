@@ -14,8 +14,10 @@ public class Bullet : Component {
 
 	// Declaring object for loading a bullet sprite into the game
 	// ----------------------------------------------------------
-	string bulletName;
-	SpriteRenderer renderer;
+	string bulletName; // GameObject name
+	string spriteName;
+	string path;
+	SpriteRenderer bulletRenderer;
 	Sprite bulletSprite;
 
 	// Declaring list of bullets
@@ -23,8 +25,14 @@ public class Bullet : Component {
 	private static List<Bullet> bullets = new List<Bullet>(); // Contains all bullets in the game
 
 
-	public Bullet ( float speed, string BulletName ) {
+	public Bullet ( float speed, string spriteName, string bulletName ) {
 
+		this.speed = speed;
+		this.bulletName = bulletName;
+		this.spriteName = spriteName;
+		path = "Lasers/" + spriteName;
+
+		loadSprite ();
 	}
 
 	public static void updateBullets() {
@@ -37,19 +45,20 @@ public class Bullet : Component {
 
 	private void loadSprite() {
 
-		// creating new game object for the bullet
-		bullet = new GameObject();
 
-		bulletSprite = Resources.Load (bulletName);
+
+		bulletSprite = Resources.Load<Sprite> (path);
 
 		if (bulletSprite == null) {
 
-			Debug.Log ("Failed to load bullet sprite: " + bulletName);
+			Debug.Log ("Failed to load bullet sprite from: " + path);
 		} 
 		else {
+			// creating new game object for the bullet
+			bullet = new GameObject(bulletName);
 
-			renderer = bullet.GetComponent<SpriteRenderer> ();
-			renderer.sprite = bulletSprite;
+			bulletRenderer = bullet.GetComponent<SpriteRenderer>();
+			bulletRenderer.sprite = bulletSprite;
 		}
 
 	}
