@@ -41,8 +41,14 @@ public class Bullet : Component {
 
 	public static void updateBullets() {
 
-		for (int i = bullets.Count - 1; i > 0; i--) {
+		for (int i = bullets.Count - 1; i >= 0; i--) {
 			bullets[i].moveForward ();
+
+			if (!Bounds.inBounds (bullets [i].bullet.transform.position.x, bullets [i].bullet.transform.position.y)) {
+				//Destroy (bullets [i].bullet);
+				//bullets [i] = null;
+				bullets.Remove (bullets [i]);
+			}
 		}
 	}
 
