@@ -5,8 +5,8 @@ using UnityEngine;
 public class Bounds {
 
 	static float ratio = (float) Screen.width / (float) Screen.height;
-	static float screenWidth = ratio * Camera.main.orthographicSize;
-	static float screenHeight = Camera.main.orthographicSize;
+	public static float screenWidth = ratio * Camera.main.orthographicSize;
+	public static float screenHeight = Camera.main.orthographicSize;
 
 	public static bool inBounds(float x, float y) {
 

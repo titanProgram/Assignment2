@@ -53,7 +53,9 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Bounds.cs" />
      <Compile Include="Assets\Scripts\Bullet.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Enemy01.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Player_Ship\Follow.cs" />
      <Compile Include="Assets\Scripts\Player_Ship\PlayerController.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

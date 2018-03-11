@@ -26,7 +26,6 @@ public class Bullet : Component {
 	// -------------------------
 	private static List<Bullet> bullets = new List<Bullet>(); // Contains all bullets in the game
 
-
 	public Bullet ( float speed, string spriteName, string bulletName, Transform bulletsTransform ) {
 
 		this.speed = speed;
@@ -42,17 +41,19 @@ public class Bullet : Component {
 	public static void updateBullets() {
 
 		for (int i = bullets.Count - 1; i >= 0; i--) {
-			bullets[i].moveForward ();
-
+			
 			if (!Bounds.inBounds (bullets [i].bullet.transform.position.x, bullets [i].bullet.transform.position.y)) {
-				//Destroy (bullets [i].bullet);
-				//bullets [i] = null;
-				bullets.Remove (bullets [i]);
+				Destroy (bullets [i].bullet);
+				bullets.RemoveAt(i);
+			} 
+			else {
+				bullets [i].moveForward ();
 			}
 		}
 	}
 
 	void moveForward() {
+
 		// resetting speed to default max value
 		bulletPosition.y = speed * Time.deltaTime;
 		// Ship is already at maxSpeed so no need to calculate its speed
@@ -86,7 +87,7 @@ public class Bullet : Component {
 				bulletRenderer.sprite = bulletSprite;
 
 				// Adding this bullet object to the static list "bullets"
-				bullets.Add (this);
+				Bullet.bullets.Add (this);
 			} 
 			// Displaying error message if the sprite renderer was not attached to the bullet game object
 			else {

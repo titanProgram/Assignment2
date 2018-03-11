@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
 	string spriteName;
 	string bulletName;
 
-	// Rotation variables
+	// Declaring rotation variables
 	// -----------------
 	public float rotationSpeed;
 
@@ -50,12 +50,10 @@ public class PlayerController : MonoBehaviour {
 		// --------------------
 		shipsPosition = new Vector3(0, 0, 0);
 		shipsRotation = new Vector3(0, 0, 0);
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
 		playerMovement ();
 		shoot ();
 		Bullet.updateBullets ();
