@@ -45,13 +45,14 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 
 		playerMovement ();
+		shoot ();
 	}
 
 	void playerMovement() {
 
 		// Moving the player forwards and backwards
 		if (Input.GetKey ("w")) {
-			Bullet b = new Bullet(10, "Blue01", "playerBullet");
+			
 			// If the ships speed is at its max and moving forward, then don't increase the ships speed by the forwardAcceleration value
 			if (speed >= maxSpeed) {
 				// resetting speed to default max value
@@ -100,6 +101,12 @@ public class PlayerController : MonoBehaviour {
 
 			shipsRotation.z = rotationSpeed * Time.deltaTime;
 			transform.Rotate (-shipsRotation);
+		}
+	}
+
+	void shoot() {
+		if (Input.GetMouseButtonDown (0)) {
+			Bullet b = new Bullet (10, "Blue01", "playerBullet");
 		}
 	}
 }

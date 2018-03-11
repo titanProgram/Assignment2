@@ -49,16 +49,22 @@ public class Bullet : Component {
 
 		bulletSprite = Resources.Load<Sprite> (path);
 
-		if (bulletSprite == null) {
+		if (bulletSprite != null) {
 
-			Debug.Log ("Failed to load bullet sprite from: " + path);
-		} 
-		else {
 			// creating new game object for the bullet
 			bullet = new GameObject(bulletName);
 
-			bulletRenderer = bullet.GetComponent<SpriteRenderer>();
-			bulletRenderer.sprite = bulletSprite;
+			bulletRenderer = bullet.AddComponent<SpriteRenderer>();
+
+			if (bulletRenderer != null) {
+				bulletRenderer.sprite = bulletSprite as Sprite;
+			} 
+			else {
+				Debug.Log ("Failed to attach SpriteRenderer to bullet game object");
+			}
+		} 
+		else {
+			Debug.Log ("Failed to load bullet sprite from: " + path);
 		}
 
 	}
