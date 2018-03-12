@@ -2,12 +2,13 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enemies\Enemy01.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player_Ship\PlayerController.cs" Line="52" Column="40" />
+      <File FileName="Assets\Scripts\Player_Ship\PlayerController.cs" Line="168" Column="40" />
       <File FileName="Assets\Scripts\Enemies\EnemyBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bullet.cs" Line="49" Column="4" />
-      <File FileName="Assets\Scripts\Bounds.cs" Line="18" Column="56" />
-      <File FileName="Assets\Scripts\Enemies\Enemy01.cs" Line="32" Column="3" />
-      <File FileName="..\..\..\..\..\..\AppData\Local\Temp\Temp2_Quill18_2D_Space_Shooter.zip\Quill18_2D_Space_Shooter\Assets\Scripts\PlayerMovement.cs" Line="20" Column="22" />
+      <File FileName="Assets\Scripts\Bullet.cs" Line="94" Column="5" />
+      <File FileName="Assets\Scripts\Bounds.cs" Line="16" Column="41" />
+      <File FileName="Assets\Scripts\Enemies\Enemy01.cs" Line="80" Column="41" />
+      <File FileName="Assets\Scripts\DetectCollision.cs" Line="41" Column="1" />
+      <File FileName="..\..\..\..\..\..\AppData\Local\Temp\Temp2_Quill18_2D_Space_Shooter.zip\Quill18_2D_Space_Shooter\Assets\Scripts\PlayerShooting.cs" Line="28" Column="111" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

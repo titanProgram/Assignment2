@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Red01
+  - Red02
+  - Blue01
   layers:
   - Default
   - TransparentFX

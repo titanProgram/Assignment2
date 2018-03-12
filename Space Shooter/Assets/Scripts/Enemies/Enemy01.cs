@@ -11,13 +11,15 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 	// Declaring vectors
 	// -----------------
 	Vector3 shipsRotation;
+	Vector3 bulletOffset;
 
 	// Declaring bullet variables
 	// --------------------------
-	Quaternion bulletSpawnPoint;
-	Transform shipsTransform;
+	float bulletSpeed;
+	string bulletName;
+	GameObject bulletSpawnPoint; // will be used to calculate the position and rotation of the bullets
 	float z;
-
+	float timeDelay;
 
 	// Use this for initialization
 	void Start () {
@@ -29,29 +31,54 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		// Initializing vectors
 		// --------------------
 		shipsRotation = new Vector3(0, 0, 0);
+		bulletOffset = new Vector3(0, 0.5f, 0);
 
+		bulletSpeed = 5f;
+		bulletName = "Red02";
+		bulletSpawnPoint = new GameObject ();
 	}
 
 	// Update is called once per frame
 	void Update () {
+
+
+
 		movement ();
+
+		if (timeDelay >= 1) {
+			shoot ();
+			timeDelay = 0;
+		}
+
+		timeDelay += Time.deltaTime;
 	}
 
 	public void movement() {
 
-		shipsRotation.z = rotationSpeed;
+		// Calculating rotation value
+		shipsRotation.z = rotationSpeed * Time.deltaTime;
+		// Rotating ship
 		transform.Rotate (shipsRotation);
 	}
 
 	public void shoot() {
 
-		shipsTransform.rotation = Quaternion.Euler(0, 0, 30);
-		transform.
-		for (int i = 0; i < 12; i++) {
-			shipsTransform.rotation = bulletSpawnPoint;
-			Bullet b = new Bullet (5f, "red01", "Enemy01 Bullet", shipsTransform);
+		bulletSpawnPoint.transform.position = transform.position;
+		bulletSpawnPoint.transform.rotation = transform.rotation;
+		//bulletSpawnPoint.transform.Translate (bulletOffset);
 
-			bulletSpawnPoint.eulerAngles.z += 30f;
+		// assigning the ships current z rotation to the variable "z"
+		z = bulletSpawnPoint.transform.rotation.eulerAngles.z;
+
+		// created 12 bullets and shooting them at 30 degree increments around the ship
+		for (int i = 0; i < 12; i++) {
+			
+			Bullet b = new Bullet (bulletSpeed, bulletName, bulletName, bulletSpawnPoint.transform);
+
+
+			bulletOffset = bulletSpawnPoint.transform.rotation * bulletOffset;
+			bulletSpawnPoint.transform.Translate (bulletOffset);
+			z += 30f;
 		}
 	}
 }
