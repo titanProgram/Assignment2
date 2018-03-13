@@ -25,6 +25,7 @@ public class DetectCollision : MonoBehaviour {
 			rend = explode.AddComponent<SpriteRenderer> ();
 			Sprite expolison = Resources.Load<Sprite> ("Models/Explosion/" + this.tag);
 			rend.sprite = expolison;
+			//explode.transform.localScale = new Vector3 (5, 5, 0);
 			// remove health
 			//Destroy (col.gameObject);
 			Debug.Log("in");

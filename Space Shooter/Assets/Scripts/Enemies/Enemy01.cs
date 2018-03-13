@@ -31,7 +31,7 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		// Initializing vectors
 		// --------------------
 		shipsRotation = new Vector3(0, 0, 0);
-		bulletOffset = new Vector3(0, 0.5f, 0);
+		bulletOffset = new Vector3(0, 2f, 0);
 
 		bulletSpeed = 5f;
 		bulletName = "Red02";
@@ -65,19 +65,20 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 
 		bulletSpawnPoint.transform.position = transform.position;
 		bulletSpawnPoint.transform.rotation = transform.rotation;
-		//bulletSpawnPoint.transform.Translate (bulletOffset);
 
 		// assigning the ships current z rotation to the variable "z"
 		z = bulletSpawnPoint.transform.rotation.eulerAngles.z;
 
 		// created 12 bullets and shooting them at 30 degree increments around the ship
 		for (int i = 0; i < 12; i++) {
-			
+
+			bulletSpawnPoint.transform.rotation = Quaternion.Euler (0, 0, z);
+			bulletSpawnPoint.transform.position = transform.position + (bulletSpawnPoint.transform.rotation * bulletOffset);
+
 			Bullet b = new Bullet (bulletSpeed, bulletName, bulletName, bulletSpawnPoint.transform);
 
 
-			bulletOffset = bulletSpawnPoint.transform.rotation * bulletOffset;
-			bulletSpawnPoint.transform.Translate (bulletOffset);
+
 			z += 30f;
 		}
 	}
