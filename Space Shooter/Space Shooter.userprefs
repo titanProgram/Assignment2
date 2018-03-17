@@ -1,14 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\DetectCollision.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player_Ship\PlayerController.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player_Ship\PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemies\EnemyBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bullet.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Bounds.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enemies\Enemy01.cs" Line="34" Column="34" />
-      <File FileName="Assets\Scripts\DetectCollision.cs" Line="11" Column="2" />
-      <File FileName="..\..\..\..\..\..\AppData\Local\Temp\Temp2_Quill18_2D_Space_Shooter.zip\Quill18_2D_Space_Shooter\Assets\Scripts\PlayerShooting.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player_Ship\PlayerController.cs" Line="67" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

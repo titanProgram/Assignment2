@@ -229,8 +229,7 @@ MonoBehaviour:
   maxSpeed: 10
   forwardAcceleration: 0
   backwardsAcceleration: 0
-  sideAcceleration: 0
-  rotationSpeed: 0
+  health: {fileID: 0}
 --- !u!212 &541073398
 SpriteRenderer:
   m_ObjectHideFlags: 0

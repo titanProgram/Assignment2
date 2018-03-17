@@ -4,51 +4,59 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	// Ship movement variables
-	// ----------------------------------------
-	private float ShipSpeed; // ships current speed
+	// Declaring Ship movement variables
+	// ---------------------------------
+	private float shipSpeed; // ships current speed
+	private float shipSideSpeed; // speed of the ship when moving side to side
 	public float maxSpeed; // the max speed the ship can move
 	public float forwardAcceleration; // the forwardAcceleration speed of the ship
 	public float backwardsAcceleration; // the backwardsAcceleration speed of the ship
-	public float sideAcceleration; // the sideAcceleration speed of the ship
 
-	// Bullet variables
-	// -----------------
-	float bulletSpeed;
-	string bulletName;
-	GameObject bulletSpawnPoint;
+	// Declaring Bullet variables
+	// --------------------------
+	private float bulletSpeed;
+	private string bulletName;
+	private GameObject bulletSpawnPoint;
+
+	// Declaring Player stats
+	public Health health;
 
 	// Declaring rotation variables
 	// -----------------
-	public float rotationSpeed;
+	private float rotationSpeed;
 
 	// Declaring vectors
 	// -----------------
-	Vector3 shipsPosition;
-	Vector3 shipsRotation;
-	Vector3 bulletOffset;
+	private Vector3 shipsPosition;
+	private Vector3 shipsRotation;
+	private Vector3 bulletOffset;
 
 	// Use this for initialization
 	void Start () {
 
 		// Initializing ship movement variables
 		// ------------------------------------
-		ShipSpeed = 0f;
-		maxSpeed = 15f;
-		// set forward, backwards and side acceleration values higher than the max speed value if you dont want any acceleration
+		shipSpeed = 0f;
+		maxSpeed = 8f;
+
+		// set forward and backwards acceleration values higher than the max speed value if you dont want any acceleration
 		forwardAcceleration = 115f;
 		backwardsAcceleration = 115f;
-		sideAcceleration = 115f;
 
 		// Initializing bullet variables
 		// -------------------------------
-		bulletSpeed = 25f;
+		bulletSpeed = 35f;
 		bulletName = "Blue01";
 		bulletSpawnPoint = new GameObject ();
 
+		// Initializing player stats variables
+		// -----------------------------------
+		health = gameObject.AddComponent<Health> ();
+		health.setupHealth (100f);
+
 		// Initializing Rotation variables
 		// -------------------------------
-		rotationSpeed = 120f;
+		rotationSpeed = 80f;
 
 		// Initializing vectors
 		// --------------------
@@ -56,7 +64,7 @@ public class PlayerController : MonoBehaviour {
 		shipsRotation = new Vector3(0, 0, 0);
 		bulletOffset = new Vector3 (0, 0.6f, 0);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		playerMovement ();
@@ -70,16 +78,18 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetKey ("w")) {
 			
 			// If the ships speed is at its max and moving forward, then don't increase the ships speed by the forwardAcceleration value
-			if (ShipSpeed >= maxSpeed) {
+			if (shipSpeed >= maxSpeed) {
 				// resetting speed to default max value
 				shipsPosition.y = maxSpeed * Time.deltaTime;
+				shipsPosition.x = 0;
 				// Ship is already at maxSpeed so no need to calculate its speed
 				transform.Translate (shipsPosition);
 			} else {
 				// Increasing the speed of the ship by the acceration variable
-				ShipSpeed += forwardAcceleration * Time.deltaTime;
+				shipSpeed += forwardAcceleration * Time.deltaTime;
 				// re-calculating the ships position vector
-				shipsPosition.y = ShipSpeed * Time.deltaTime;
+				shipsPosition.y = shipSpeed * Time.deltaTime;
+				shipsPosition.x = 0;
 				// Translate the ship by the newly calculated shipPosition
 				transform.Translate (shipsPosition);
 			}
@@ -87,66 +97,41 @@ public class PlayerController : MonoBehaviour {
 		else if (Input.GetKey ("s")) {
 
 			// If the ship is reversing at its max speed
-			if (ShipSpeed <= -maxSpeed) {
+			if (shipSpeed <= -maxSpeed) {
 				// Reseting speed to default max value
 				shipsPosition.y = -maxSpeed * Time.deltaTime;
+				shipsPosition.x = 0;
 				// Ship is already at maxSpeed and reversing so no need to calculate its speed
 				transform.Translate (shipsPosition);
 			} 
 			else {
 				// Decreasing the speed of the ship by the backwardsAcceleration variable
-				ShipSpeed -= backwardsAcceleration * Time.deltaTime;
+				shipSpeed -= backwardsAcceleration * Time.deltaTime;
 				// Re-calculating the ships position vector
-				shipsPosition.y = ShipSpeed * Time.deltaTime;
+				shipsPosition.y = shipSpeed * Time.deltaTime;
+				shipsPosition.x = 0;
 				// Translate the ship by the newly calculated shipPosition
 				transform.Translate (shipsPosition);
 			}
 		} 
 		else {
 			// resetting speed
-			ShipSpeed = 0;
+			shipSpeed = 0;
 		}
-		/*
+
 		// Moving the player side to side
 		if (Input.GetKey ("e")) {
 
-			// If the ships speed is at its max and moving right, then don't increase the ships speed by the sideAcceleration value
-			if (ShipSpeed >= maxSpeed) {
-				// resetting speed to default max value
-				shipsPosition.x = maxSpeed * Time.deltaTime;
-				// Ship is already at maxSpeed so no need to calculate its speed
-				transform.Translate (shipsPosition);
-			} else {
-				// Increasing the speed of the ship by the acceration variable
-				ShipSpeed += sideAcceleration * Time.deltaTime;
-				// re-calculating the ships position vector
-				shipsPosition.x = ShipSpeed * Time.deltaTime;
-				// Translate the ship by the newly calculated shipPosition
-				transform.Translate (shipsPosition);
-			}
+			shipsPosition.y = 0;
+			shipsPosition.x = maxSpeed * Time.deltaTime;
+			transform.Translate (shipsPosition);
 		} 
 		else if (Input.GetKey ("q")) {
 
-			// If the ships speed is at its max and moving left, then don't increase the ships speed by the sideAcceleration value
-			if (ShipSpeed <= -maxSpeed) {
-				// Reseting speed to default max value
-				shipsPosition.x = -maxSpeed * Time.deltaTime;
-				// Ship is already at maxSpeed so no need to calculate its speed
-				transform.Translate (shipsPosition);
-			} 
-			else {
-				// Decreasing the speed of the ship by the sideAcceleration variable
-				ShipSpeed -= sideAcceleration * Time.deltaTime;
-				// Re-calculating the ships position vector
-				shipsPosition.y = ShipSpeed * Time.deltaTime;
-				// Translate the ship by the newly calculated shipPosition
-				transform.Translate (shipsPosition);
-			}
-		} 
-		else {
-			// resetting speed
-			ShipSpeed = 0;
-		}*/
+			shipsPosition.y = 0;
+			shipsPosition.x = -maxSpeed * Time.deltaTime;
+			transform.Translate (shipsPosition);
+		}
 
 		// Rotating the player ship
 		if (Input.GetKey("a")) {

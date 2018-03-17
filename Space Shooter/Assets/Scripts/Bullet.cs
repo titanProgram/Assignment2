@@ -29,6 +29,10 @@ public class Bullet : Component {
 	// -------------------------
 	private static List<Bullet> bullets = new List<Bullet>(); // Contains all bullets in the game
 
+	public static float red01 = 20f;
+	public static float red02 = 20f;
+	public static float blue01 = 20f;
+
 	public Bullet ( float speed, string spriteName, string bulletName, Transform bulletsTransform ) {
 
 		this.speed = speed;
@@ -88,7 +92,7 @@ public class Bullet : Component {
 			bulletRenderer = bullet.AddComponent<SpriteRenderer> ();
 			collider = bullet.AddComponent<BoxCollider2D> ();
 			bullet.AddComponent<DetectCollision> ();
-
+	
 			// Checking if the sprite renderer was succesfully added to the game object
 			if (bulletRenderer != null && collider != null) {
 

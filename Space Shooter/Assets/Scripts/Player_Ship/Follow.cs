@@ -16,5 +16,6 @@ public class Follow : MonoBehaviour {
 	void Update () {
 		
 		Camera.main.transform.position = transform.position + cameraPosition;
+		Camera.main.transform.rotation = transform.rotation;
 	}
 }

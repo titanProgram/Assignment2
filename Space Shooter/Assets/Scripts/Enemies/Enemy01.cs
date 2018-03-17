@@ -21,6 +21,9 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 	float z;
 	float timeDelay;
 
+	// Declaring enemy stats
+	Health health;
+
 	// Use this for initialization
 	void Start () {
 
@@ -32,6 +35,11 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		// --------------------
 		shipsRotation = new Vector3(0, 0, 0);
 		bulletOffset = new Vector3(0, 2f, 0);
+
+		// Initializing enemy stats variables
+		// -----------------------------------
+		health = gameObject.AddComponent<Health> ();
+		health.setupHealth (400f);
 
 		bulletSpeed = 5f;
 		bulletName = "Red02";
@@ -53,7 +61,7 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		timeDelay += Time.deltaTime;
 	}
 
-	public void movement() {
+	public void movement () {
 
 		// Calculating rotation value
 		shipsRotation.z = rotationSpeed * Time.deltaTime;
@@ -61,7 +69,7 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		transform.Rotate (shipsRotation);
 	}
 
-	public void shoot() {
+	public void shoot () {
 
 		bulletSpawnPoint.transform.position = transform.position;
 		bulletSpawnPoint.transform.rotation = transform.rotation;

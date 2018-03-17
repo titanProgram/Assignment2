@@ -19,7 +19,7 @@ public class Bounds {
 		float top = Camera.main.transform.position.y + (screenHeight );
 		float bottom = Camera.main.transform.position.y - (screenHeight );
 
-		if (x < right && x > left && y > bottom && y < top) {
+		if (x < right * 2 && x > left  * 2 && y > bottom  * 2 && y < top * 2) {
 			return true;
 		}
 		else {
