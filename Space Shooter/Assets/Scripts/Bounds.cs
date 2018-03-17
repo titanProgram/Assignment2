@@ -14,12 +14,12 @@ public class Bounds {
 	public static bool inBounds(float x, float y) {
 
 		// calculating boundries of the screen
-		float left = Camera.main.transform.position.x - (screenWidth );
-		float right = Camera.main.transform.position.x + (screenWidth );
-		float top = Camera.main.transform.position.y + (screenHeight );
-		float bottom = Camera.main.transform.position.y - (screenHeight );
+		float left = Camera.main.transform.position.x - (screenWidth  * 2 );
+		float right = Camera.main.transform.position.x + (screenWidth  * 2);
+		float top = Camera.main.transform.position.y + (screenHeight  * 2);
+		float bottom = Camera.main.transform.position.y - (screenHeight  * 2);
 
-		if (x < right * 2 && x > left  * 2 && y > bottom  * 2 && y < top * 2) {
+		if (x < right && x > left && y > bottom && y < top) {
 			return true;
 		}
 		else {
