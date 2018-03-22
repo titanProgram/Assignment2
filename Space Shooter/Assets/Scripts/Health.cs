@@ -93,7 +93,5 @@ public class Health : MonoBehaviour {
 			removeHealth = Bullet.blue01;
 			decreaseHealth (removeHealth);
 		}
-
-		Debug.Log (getHealth ());
 	}
 }

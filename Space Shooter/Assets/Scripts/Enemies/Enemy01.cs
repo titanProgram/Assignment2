@@ -8,11 +8,6 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 	// ----------------------------
 	public float rotationSpeed;
 
-	// Declaring vectors
-	// -----------------
-	Vector3 shipsRotation;
-	Vector3 bulletOffset;
-
 	// Declaring bullet variables
 	// --------------------------
 	float bulletSpeed;
@@ -23,6 +18,11 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 
 	// Declaring enemy stats
 	Health health;
+
+	// Declaring vectors
+	// -----------------
+	Vector3 shipsRotation;
+	Vector3 bulletOffset;
 
 	// Use this for initialization
 	void Start () {
@@ -39,7 +39,7 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		// Initializing enemy stats variables
 		// -----------------------------------
 		health = gameObject.AddComponent<Health> ();
-		health.setupHealth (400f);
+		health.setupHealth (800f);
 
 		bulletSpeed = 5f;
 		bulletName = "Red02";

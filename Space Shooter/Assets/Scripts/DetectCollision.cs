@@ -20,7 +20,7 @@ public class DetectCollision : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col) {
 
 		// remove health if it is not a bullet
-		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy") {
+		//if (col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy") {
 			explode = new GameObject ();
 			explode.transform.position = transform.position;
 			explode.transform.Translate (explosionOffSet);
@@ -30,10 +30,10 @@ public class DetectCollision : MonoBehaviour {
 
 			Destroy (gameObject);
 			Destroy (explode, 0.1f);
-		} 
-		else {
-			Destroy (this, 0.5f);
-			Debug.Log(col.gameObject.tag);
-		}
+		//} 
+		//else {
+			//Destroy (this, 0.5f);
+			//Debug.Log(col.gameObject.tag);
+		//}
 	}
 }

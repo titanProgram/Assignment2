@@ -30,7 +30,7 @@ public class Bullet : Component {
 	private static List<Bullet> bullets = new List<Bullet>(); // Contains all bullets in the game
 
 	public static float red01 = 20f;
-	public static float red02 = 20f;
+	public static float red02 = 15f;
 	public static float blue01 = 20f;
 
 	public Bullet ( float speed, string spriteName, string bulletName, Transform bulletsTransform ) {

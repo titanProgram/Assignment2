@@ -56,13 +56,16 @@ public class PlayerController : MonoBehaviour {
 
 		// Initializing Rotation variables
 		// -------------------------------
-		rotationSpeed = 80f;
+		rotationSpeed = 180f;
 
 		// Initializing vectors
 		// --------------------
 		shipsPosition = new Vector3(0, 0, 0);
 		shipsRotation = new Vector3(0, 0, 0);
 		bulletOffset = new Vector3 (0, 0.6f, 0);
+
+		// Setting the players default starting location
+		transform.position = new Vector3 (0, 0, 0);
 	}
 
 	// Update is called once per frame
