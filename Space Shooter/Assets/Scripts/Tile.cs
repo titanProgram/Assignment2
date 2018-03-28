@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour {
+public class Tile {
 
 	// Static data
 
 	// Will contain a list of all created tiles in the game
-	static public Tile[,] tiles = new Tile[100,100];
+	public static int tilesSize = 100;
+	static public Tile[,] tiles = new Tile[tilesSize,tilesSize];
+
 
 	// Class data
 	// ---------------
@@ -55,6 +57,8 @@ public class Tile : MonoBehaviour {
 		int enemiesSize = Random.Range (1, 4);
 		int astroidsSize = Random.Range (1, 4);
 
+		enemies = new int[enemiesSize];
+		astroids = new int[astroidsSize];
 		for (int i = 0; i < enemiesSize; i++) {
 			enemies [i] = 1;
 		}
@@ -62,96 +66,152 @@ public class Tile : MonoBehaviour {
 		for (int i = 0; i < astroidsSize; i++) {
 			astroids [i] = Random.Range (1, 4);
 		}
+			
 	}
 
 	// Getters
-	int[] getId () {
+	public int[] getId () {
 		return id;
 	}
 
-	float getX () {
+	public float getX () {
 		return x;
 	}
 
-	float getY () {
+	public float getY () {
 		return y;
+	}
+
+	public float getSize () {
+		return size;
 	}
 
 	// Getters for surrounding Tiles
 	public Tile getNorth() {
-		if (tiles [row, col + 1] == null) {
-			Tile newTile = new Tile (x, y + size, size);
-			return newTile;
-		} else {
-			return tiles [row, col + 1];
+		if (col < tilesSize) {
+			if (tiles [row, col + 1] == null) {
+				tiles [row, col + 1] = new Tile (x, y + size, size);
+				return tiles [row, col + 1];
+			} else {
+				return tiles [row, col + 1];
+			}
+		} 
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getSouth() {
-		if (tiles [row, col - 1] == null) {
-			Tile newTile = new Tile (x, y - size, size);
-			return newTile;
-		} else {
-			return tiles [row, col - 1];
+		if (col > 0) {
+			if (tiles [row, col - 1] == null) {
+				tiles [row, col - 1] = new Tile (x, y - size, size);
+				return tiles [row, col - 1];
+			} else {
+				return tiles [row, col - 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getEast() {
-		if (tiles [row + 1, col] == null) {
-			Tile newTile = new Tile (x + size, y, size);
-			return newTile;
-		} else {
-			return tiles [row + 1, col];
+		if (row < tilesSize) {
+			if (tiles [row + 1, col] == null) {
+				tiles [row + 1, col] = new Tile (x + size, y, size);
+				return tiles [row + 1, col];
+			} else {
+				return tiles [row + 1, col];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getWest() {
-		if (tiles [row - 1, col] == null) {
-			Tile newTile = new Tile (x - size, y, size);
-			return newTile;
-		} else {
-			return tiles [row - 1, col];
+		if (row > 0) {
+			if (tiles [row - 1, col] == null) {
+				tiles [row - 1, col] = new Tile (x - size, y, size);
+				return tiles [row - 1, col];
+			} else {
+				return tiles [row - 1, col];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getNorthEast() {
-		if (tiles [row + 1, col + 1] == null) {
-			Tile newTile = new Tile (x + size, y + size, size);
-			return newTile;
-		} else {
-			return tiles [row + 1, col + 1];
+		if (row < tilesSize && col < tilesSize) {
+			if (tiles [row + 1, col + 1] == null) {
+				tiles [row + 1, col + 1] = new Tile (x + size, y + size, size);
+				return tiles [row + 1, col + 1];
+			} else {
+				return tiles [row + 1, col + 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getNorthWest() {
-		if (tiles [row - 1, col + 1] == null) {
-			Tile newTile = new Tile (x - size, y - size, size);
-			return newTile;
-		} else {
-			return tiles [row - 1, col - 1];
+		if (row > 0 && col < tilesSize) {
+			if (tiles [row - 1, col + 1] == null) {
+				tiles [row - 1, col + 1] = new Tile (x - size, y - size, size);
+				return tiles [row - 1, col + 1];
+			} else {
+				return tiles [row - 1, col - 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getSouthEast() {
-		if (tiles [row + 1, col - 1] == null) {
-			Tile newTile = new Tile (x + size, y - size, size);
-			return newTile;
-		} else {
-			return tiles [row + 1, col - 1];
+		if (row < tilesSize && col > 0) {
+			if (tiles [row + 1, col - 1] == null) {
+				tiles [row + 1, col - 1] = new Tile (x + size, y - size, size);
+				return tiles [row + 1, col - 1];
+			} else {
+				return tiles [row + 1, col - 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
 	public Tile getSouthWest() {
-		if (tiles [row - 1, col - 1] == null) {
-			Tile newTile = new Tile (x - size, y - size, size);
-			return newTile;
-		} else {
-			return tiles [row - 1, col - 1];
+		if (row > 0 && col > 0) {
+			if (tiles [row - 1, col - 1] == null) {
+				tiles [row - 1, col - 1] = new Tile (x - size, y - size, size);
+				return tiles [row - 1, col - 1];
+			} else {
+				return tiles [row - 1, col - 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			return null;
 		}
 	}
 
+	void randomAstroids () {
+
+	}
 	// Methods
-	void renderObjects () {
+	/*void renderObjects () {
 		GameObject GO;
 
 		// Rendering Astroids
@@ -169,5 +229,5 @@ public class Tile : MonoBehaviour {
 				Debug.LogError("Incorrect value in astroids array: astroids[" + i + "] = " + astroids[i]);
 			}
 		}
-	}
+	}*/
 }

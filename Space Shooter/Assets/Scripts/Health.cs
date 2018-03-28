@@ -13,8 +13,10 @@ public class Health : MonoBehaviour {
 	GameObject explosionGO;
 	Sprite explosionSprite;
 	SpriteRenderer explosionRenderer;
+
 	float x;
 	float y;
+
 	Vector3 pos = new Vector3 (0, 0, 0);
 	Vector3 scale = new Vector3 (0, 0, 0);
 
