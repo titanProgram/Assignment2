@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 	public Health health;
 
 	// Declaring rotation variables
-	// -----------------
+	// ----------------------------
 	private float rotationSpeed;
 
 	// Declaring vectors
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour {
 		bulletOffset = new Vector3 (0, 0.6f, 0);
 
 		// Setting the players default starting location
-		transform.position = new Vector3 (0, 0, 0);
+		transform.position = new Vector3 (500, 500, 0);
 	}
 
 	// Update is called once per frame

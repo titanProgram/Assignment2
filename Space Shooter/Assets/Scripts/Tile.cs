@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tile {
 
 	// Static data
+	// -----------
 
 	// Will contain a list of all created tiles in the game
 	public static int tilesSize = 100;
@@ -12,36 +13,32 @@ public class Tile {
 
 
 	// Class data
-	// ---------------
-	// id will contain the tiles x and y position
-	private int[] id;
-	// size of the camara in relation to the camera size
+	// ----------
+
+	// size of the tile in relation to the camera size
 	private int size;
 
+	// Tiles x, y position (center of tile)
 	int x;
 	int y;
 
+	// Tiles current position in the tiles array
 	int row;
 	int col;
 
-	// Each tile can contain x amount of game objects
+	// Lists of enemies and astroids that will be randomdly generatied
 
 	// 1 = UFO enemy type
 	int[] enemies;
 	int enemiesSize;
 
-	// 1 = Astroid field 1
-	// 2 = Astroid field 2
-	// 3 = Astroid field 3
-	int[] astroids;
-	int astroidsSize;
+	GameObject[] asteroidType;
+	GameObject[] asteroids;
+	int asteroidsSize;
 
 	// Constructor
 	public Tile (int x, int y, int size) {
 
-		this.id = new int[2];
-		this.id [0] = x;
-		this.id [1] = y;
 		this.x = x;
 		this.y = y;
 		this.size = size;
@@ -53,32 +50,64 @@ public class Tile {
 		tiles [row,col] = this;
 
 
+		enemiesSize = Random.Range (1, 4); // number of enemies in a tile
+		asteroidsSize = Random.Range (1, 4); // number of asteroids in a tile
 
-		int enemiesSize = Random.Range (1, 4);
-		int astroidsSize = Random.Range (1, 4);
+		asteroidType = new GameObject[asteroidsSize];
+		asteroids = new GameObject[asteroidsSize];
 
-		enemies = new int[enemiesSize];
-		astroids = new int[astroidsSize];
-		for (int i = 0; i < enemiesSize; i++) {
-			enemies [i] = 1;
+
+		for (int i = 0; i < asteroidsSize; i++) {
+			int randNum = Random.Range (1, 4);
+			if (randNum == 1) {
+				if (Resources.Load<GameObject> ("Models/Asteriods/Prefabs/AsteriodField01") != null) {
+					asteroidType [i] = Resources.Load<GameObject> ("Models/Asteriods/Prefabs/AsteriodField01");
+					asteroids [i] = asteroidType [i];
+				} 
+				else {
+					Debug.Log ("Cant load file");
+				}
+			} 
+			else if (randNum == 2) {
+				if (Resources.Load<GameObject> ("Models/Asteriods/Prefabs/AsteriodField02") != null) {
+					asteroidType [i] = Resources.Load<GameObject> ("Models/Asteriods/Prefabs/AsteriodField02");
+					asteroids [i] = asteroidType [i];
+				} 
+				else {
+					Debug.Log ("Cant load file");
+				}
+			} 
+			else if (randNum == 3) {
+				if (Resources.Load<GameObject> ("Models/Asteriods/Prefabs/AsteriodField03") != null) {
+					asteroidType [i] = Resources.Load<GameObject> ("Models/Asteriods/Prefabs/AsteriodField03");
+					asteroids [i] = asteroidType [i];
+				} 
+				else {
+					Debug.Log ("Cant load file");
+				}
+			} 
+			else {
+				Debug.Log ("Invalid number: " + randNum);
+			}
 		}
 
-		for (int i = 0; i < astroidsSize; i++) {
-			astroids [i] = Random.Range (1, 4);
-		}
-			
+
+		GameObject sq = new GameObject ("Tile " + x + ", " + y);
+		SpriteRenderer r = sq.AddComponent<SpriteRenderer> ();
+		r.sprite = Resources.Load<Sprite> ("Square");
+		r.color = Random.ColorHSV ();
+		sq.transform.position = new Vector3 (x, y, 2);
+		sq.transform.localScale = new Vector3 (10, 10, 10);
+
 	}
 
 	// Getters
-	public int[] getId () {
-		return id;
-	}
 
-	public float getX () {
+	public int getX () {
 		return x;
 	}
 
-	public float getY () {
+	public int getY () {
 		return y;
 	}
 
@@ -88,36 +117,21 @@ public class Tile {
 
 	// Getters for surrounding Tiles
 	public Tile getNorth() {
-		if (col < tilesSize) {
-			if (tiles [row, col + 1] == null) {
-				tiles [row, col + 1] = new Tile (x, y + size, size);
-				return tiles [row, col + 1];
+		if (row > 0) {
+			if (tiles [row - 1, col] == null) {
+				tiles [row - 1, col] = new Tile (x - size, y, size);
+				return tiles [row - 1, col];
 			} else {
-				return tiles [row, col + 1];
+				return tiles [row - 1, col];
 			}
 		} 
 		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			Debug.LogError ("trying to access tiles[" + (row - 1) + "][" + col + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - N");
 			return null;
 		}
 	}
 
 	public Tile getSouth() {
-		if (col > 0) {
-			if (tiles [row, col - 1] == null) {
-				tiles [row, col - 1] = new Tile (x, y - size, size);
-				return tiles [row, col - 1];
-			} else {
-				return tiles [row, col - 1];
-			}
-		}
-		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
-			return null;
-		}
-	}
-
-	public Tile getEast() {
 		if (row < tilesSize) {
 			if (tiles [row + 1, col] == null) {
 				tiles [row + 1, col] = new Tile (x + size, y, size);
@@ -127,72 +141,57 @@ public class Tile {
 			}
 		}
 		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			Debug.LogError ("trying to access tiles[" + (row + 1) + "][" + col + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - S");
+			return null;
+		}
+	}
+
+	public Tile getEast() {
+		if (col < tilesSize) {
+			if (tiles [row, col + 1] == null) {
+				tiles [row, col + 1] = new Tile (x, y + size, size);
+				return tiles [row, col + 1];
+			} else {
+				return tiles [row, col + 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + row + "][" + (col + 1) + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - E");
 			return null;
 		}
 	}
 
 	public Tile getWest() {
-		if (row > 0) {
-			if (tiles [row - 1, col] == null) {
-				tiles [row - 1, col] = new Tile (x - size, y, size);
-				return tiles [row - 1, col];
+		if (col > 0) {
+			if (tiles [row, col - 1] == null) {
+				tiles [row, col - 1] = new Tile (x, y - size, size);
+				return tiles [row, col - 1];
 			} else {
-				return tiles [row - 1, col];
+				return tiles [row, col - 1];
 			}
 		}
 		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			Debug.LogError ("trying to access tiles[" + row + "][" + (col - 1) + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - W");
 			return null;
 		}
 	}
 
 	public Tile getNorthEast() {
-		if (row < tilesSize && col < tilesSize) {
-			if (tiles [row + 1, col + 1] == null) {
-				tiles [row + 1, col + 1] = new Tile (x + size, y + size, size);
-				return tiles [row + 1, col + 1];
+		if (row > 0 && col < tilesSize) {
+			if (tiles [row - 1, col + 1] == null) {
+				tiles [row - 1, col + 1] = new Tile (x - size, y + size, size);
+				return tiles [row - 1, col + 1];
 			} else {
-				return tiles [row + 1, col + 1];
+				return tiles [row - 1, col + 1];
 			}
 		}
 		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			Debug.LogError ("trying to access tiles[" + (row - 1) + "][" + (col + 1) + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - NE");
 			return null;
 		}
 	}
 
 	public Tile getNorthWest() {
-		if (row > 0 && col < tilesSize) {
-			if (tiles [row - 1, col + 1] == null) {
-				tiles [row - 1, col + 1] = new Tile (x - size, y - size, size);
-				return tiles [row - 1, col + 1];
-			} else {
-				return tiles [row - 1, col - 1];
-			}
-		}
-		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
-			return null;
-		}
-	}
-
-	public Tile getSouthEast() {
-		if (row < tilesSize && col > 0) {
-			if (tiles [row + 1, col - 1] == null) {
-				tiles [row + 1, col - 1] = new Tile (x + size, y - size, size);
-				return tiles [row + 1, col - 1];
-			} else {
-				return tiles [row + 1, col - 1];
-			}
-		}
-		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
-			return null;
-		}
-	}
-
-	public Tile getSouthWest() {
 		if (row > 0 && col > 0) {
 			if (tiles [row - 1, col - 1] == null) {
 				tiles [row - 1, col - 1] = new Tile (x - size, y - size, size);
@@ -202,32 +201,61 @@ public class Tile {
 			}
 		}
 		else {
-			Debug.LogError ("trying to access tiles[" + col + "][" + row + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "]");
+			Debug.LogError ("trying to access tiles[" + (row - 1) + "][" + (col - 1) + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - NW");
 			return null;
 		}
 	}
 
-	void randomAstroids () {
+	public Tile getSouthEast() {
+		if (row < tilesSize && col < tilesSize) {
+			if (tiles [row + 1, col + 1] == null) {
+				tiles [row + 1, col + 1] = new Tile (x + size, y + size, size);
+				return tiles [row + 1, col + 1];
+			} else {
+				return tiles [row + 1, col + 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + (row + 1) + "][" + (col +1) + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] SE");
+			return null;
+		}
+	}
+
+	public Tile getSouthWest() {
+		if (row < tilesSize && col > 0) {
+			if (tiles [row + 1, col - 1] == null) {
+				tiles [row + 1, col - 1] = new Tile (x + size, y - size, size);
+				return tiles [row + 1, col - 1];
+			} else {
+				return tiles [row + 1, col - 1];
+			}
+		}
+		else {
+			Debug.LogError ("trying to access tiles[" + (row + 1) + "][" + (col - 1) + "] - index out of bounds array size = [" + tilesSize + "][" + tilesSize + "] - SW");
+			return null;
+		}
+	}
+
+	void randomAsteriods () {
 
 	}
 	// Methods
-	/*void renderObjects () {
-		GameObject GO;
+	public void renderObjects () {
+		Vector3 offset = new Vector3 (3.3f, 0f, 0f);
+		Vector3 curPos = new Vector3 (x, y, 0);
 
-		// Rendering Astroids
-		for (int i = 0; i < astroidsSize; i++) {
-			if (astroids [i] == 1) {
-				GO = new GameObject ("Astroid field 01");
-			} 
-			else if (astroids [i] == 1) {
-				GO = new GameObject ("Astroid field 02");
-			} 
-			else if (astroids [i] == 1) {
-				GO = new GameObject ("Astroid field 03");
-			} 
-			else {
-				Debug.LogError("Incorrect value in astroids array: astroids[" + i + "] = " + astroids[i]);
-			}
+		for (int i = 0; i < asteroidsSize; i++) {
+			asteroids [i] = GameObject.Instantiate (asteroidType [i]) as GameObject;
+			asteroids [i].transform.position = curPos;
+			curPos += offset;
 		}
-	}*/
+	}
+
+	public void destoryAllObjects () {
+		for (int i = 0; i < asteroidsSize; i++) {
+			GameObject.Destroy (asteroids [i]);
+		}
+	}
+
+
 }

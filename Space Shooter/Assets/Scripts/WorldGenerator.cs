@@ -18,24 +18,36 @@ public class WorldGenerator : MonoBehaviour {
 
 	Vector3 CurrentPosition;
 
+	bool switchTile;
+
 	// Use this for initialization
 	void Start () {
 		currentTile = new Tile (500, 500, 10);
 		currentTiles = new Tile[8];
+		switchTile = false;
+
+		if (currentTile == null) {
+			Debug.Log ("Failed to load current tile");
+		} 
+		else {
+			Debug.Log (currentTile.getX());
+		}
 
 		setTiles ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		CurrentPosition = transform.position;
 		updateTiles ();
-
 	}
 
 	void updateTiles () {
 		Vector2 a = new Vector2 (CurrentPosition.x, CurrentPosition.y);
-		Vector2 b = new Vector2 (currentTile.getX(), currentTile.getY());
+
+			
+		Vector2 b = new Vector2 ((float) currentTile.getX(), (float) currentTile.getY());
 
 		if (Vector2.Distance(a, b) > currentTile.getSize () / 2 || Vector2.Distance(b, a) > currentTile.getSize() / 2){
 
@@ -48,9 +60,18 @@ public class WorldGenerator : MonoBehaviour {
 				Vector2 v = new Vector2 (x, y);
 
 				if (Vector2.Distance (v, a) < currentTile.getSize () / 2) {
+					currentTile.destoryAllObjects ();
 					currentTile = currentTiles [i];
-					setTiles ();
+					switchTile = true;
 				}
+			}
+
+			if (switchTile) {
+				for (int i = 0; i < 8; i++) {
+					currentTiles [i].destoryAllObjects ();
+				}
+				setTiles ();
+				switchTile = false;
 			}
 		}
 	}
@@ -73,8 +94,18 @@ public class WorldGenerator : MonoBehaviour {
 		currentTiles[5] = currentTile.getNorthWest();
 		currentTiles[6] = currentTile.getSouthEast();
 		currentTiles[7] = currentTile.getSouthWest();
+	
+		northTile.renderObjects();
+		southTile.renderObjects();
+		eastTile.renderObjects();
+		westTile.renderObjects();
+		northEastTile.renderObjects();
+		northWestTile.renderObjects();
+		southEastTile.renderObjects();
+		southWestTile.renderObjects();
+		currentTile.renderObjects ();
 
-		Debug.Log (currentTile.getX () + ", " + currentTile.getY ());
+		Debug.Log ("Current Tile: " + currentTile.getX () + ", " + currentTile.getY ());
 	}
 
 	void displayTileBox() {
