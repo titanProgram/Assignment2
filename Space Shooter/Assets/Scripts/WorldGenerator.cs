@@ -108,9 +108,7 @@ public class WorldGenerator : MonoBehaviour {
 		Debug.Log ("Current Tile: " + currentTile.getX () + ", " + currentTile.getY ());
 	}
 
-	void displayTileBox() {
-		
-	}
+
 
 
 }

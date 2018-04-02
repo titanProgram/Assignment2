@@ -41,11 +41,11 @@ public class Enemy02 : MonoBehaviour, EnemyBehaviour{
 		// Initializing ship movement variables
 		// ------------------------------------
 		shipSpeed = 2f;
-		rotationSpeed = 360f;
+		rotationSpeed = 180f;
 
 		// Initializing bullet variables
 		// -------------------------------
-		bulletSpeed = 35f;
+		bulletSpeed = 15f;
 		bulletName = "Red02";
 		bulletSpawnPoint = new GameObject ();
 
@@ -63,7 +63,7 @@ public class Enemy02 : MonoBehaviour, EnemyBehaviour{
 		start = new Vector3 (0, 0);
 		end = new Vector3 (0, 0);
 
-		lookTowards (99999);
+		lookTowards (10);
 	}
 	
 	// Update is called once per frame
