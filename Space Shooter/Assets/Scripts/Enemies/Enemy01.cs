@@ -39,7 +39,7 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 		// Initializing enemy stats variables
 		// -----------------------------------
 		health = gameObject.AddComponent<Health> ();
-		health.setupHealth (800f);
+		health.setupHealth (400f);
 
 		bulletSpeed = 5f;
 		bulletName = "Red02";
@@ -70,6 +70,10 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 	}
 
 	public void shoot () {
+		AudioSource source = gameObject.AddComponent<AudioSource> ();
+		source.volume = 0.1f;
+		source.clip = Resources.Load<AudioClip> ("Sound/tir");
+		source.Play ();
 
 		bulletSpawnPoint.transform.position = transform.position;
 		bulletSpawnPoint.transform.rotation = transform.rotation;

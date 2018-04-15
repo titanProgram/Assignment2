@@ -146,6 +146,4 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Health
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.WorldGenerator
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Follow
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PlayerStats
 c155a394adca7150e655710872cdbd4f Assembly-CSharp.dll:.Enemy01
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.test

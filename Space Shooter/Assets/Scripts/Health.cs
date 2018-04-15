@@ -72,7 +72,9 @@ public class Health : MonoBehaviour {
 	private void loadSprites () {
 
 		explosionGO = new GameObject ("BOOM");
-
+		AudioSource source = explosionGO.AddComponent<AudioSource> ();
+		source.clip = Resources.Load<AudioClip> ("Sound/explosion");
+		source.Play ();
 		pos = transform.position;
 		scale = transform.localScale;
 

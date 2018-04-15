@@ -57,11 +57,9 @@
      <Compile Include="Assets\Scripts\Enemies\Enemy01.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy02.cs" />
      <Compile Include="Assets\Scripts\Enemies\EnemyBehaviour.cs" />
-     <Compile Include="Assets\Scripts\GUI\PlayerStats.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\Player_Ship\Follow.cs" />
      <Compile Include="Assets\Scripts\Player_Ship\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\test.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\WorldGenerator.cs" />
  <Reference Include="UnityEngine.UI">

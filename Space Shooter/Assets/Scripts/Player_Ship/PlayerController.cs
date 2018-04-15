@@ -31,6 +31,12 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 shipsRotation;
 	private Vector3 bulletOffset;
 
+	private AudioClip clip1;
+	private AudioClip clip2;
+	private AudioSource source;
+	private AudioSource background;
+	private bool soundToggle; // used to toggle between two laser sounds
+
 	// Use this for initialization
 	void Start () {
 
@@ -66,6 +72,19 @@ public class PlayerController : MonoBehaviour {
 
 		// Setting the players default starting location
 		transform.position = new Vector3 (500, 500, 0);
+
+		// setting audio variables
+		clip1 = Resources.Load<AudioClip> ("Sound/laserfire01");
+		clip2 = Resources.Load<AudioClip> ("Sound/laserfire02");
+		source = gameObject.AddComponent<AudioSource> ();
+		background = gameObject.AddComponent<AudioSource> ();
+		background.clip = Resources.Load<AudioClip> ("Sound/cave themeb4");
+		background.loop = true;
+		background.volume = 2f;
+		background.Play ();
+		source.clip = clip1;
+		soundToggle = false;
+
 	}
 
 	// Update is called once per frame
@@ -155,6 +174,18 @@ public class PlayerController : MonoBehaviour {
 			bulletSpawnPoint.transform.rotation = (transform.rotation);
 			bulletSpawnPoint.transform.Translate  (bulletOffset);
 			Bullet b = new Bullet (bulletSpeed, bulletName, bulletName, bulletSpawnPoint.transform);
+
+			// setting both clip for both blocks to clip1 (sounds better than toggling)
+			if (soundToggle) {
+				source.clip = clip1;
+				source.Play ();
+				soundToggle = false;
+			} 
+			else {
+				source.clip = clip1;
+				source.Play ();
+				soundToggle = true;
+			}
 		}
 	}
 }
