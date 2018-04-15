@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour {
 
@@ -48,12 +49,24 @@ public class Health : MonoBehaviour {
 	}
 
 	private void kill () {
-		
+
+		float tDelay = 1;
+
 		for (int i = 0; i < 5; i++) {
 			loadSprites ();
 		}
-		//
+
 		Destroy (this.gameObject);
+
+		if (gameObject.tag == "Player") {
+
+			while (tDelay > 0) {
+				tDelay -= Time.deltaTime;
+			}
+
+			SceneManager.LoadScene ("GameOver");
+		}
+
 	}
 
 	private void loadSprites () {

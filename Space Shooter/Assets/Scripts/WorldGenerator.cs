@@ -44,25 +44,32 @@ public class WorldGenerator : MonoBehaviour {
 	}
 
 	void updateTiles () {
+		// Vector for current position
 		Vector2 a = new Vector2 (CurrentPosition.x, CurrentPosition.y);
 
-			
+		// vector for currentTile position	
 		Vector2 b = new Vector2 ((float) currentTile.getX(), (float) currentTile.getY());
 
+		// Checking if the player is in a new tile i.e. the distance of the player from the currentTile is greater than the tiles size
 		if (Vector2.Distance(a, b) > currentTile.getSize () / 2 || Vector2.Distance(b, a) > currentTile.getSize() / 2){
 
 			float x;
 			float y;
 
+			// looping through all surroundind tiles to fine current tile
 			for (int i = 0; i < 8; i++) {
 				x = currentTiles [i].getX ();
 				y = currentTiles [i].getY ();
+
+				// one of the surrounding tiles pos
 				Vector2 v = new Vector2 (x, y);
 
+				// if the distance of the tile pos v is less than the tile size
+				// then set it to be to current tile (this is the tile the player is in)
 				if (Vector2.Distance (v, a) < currentTile.getSize () / 2) {
-					currentTile.destoryAllObjects ();
-					currentTile = currentTiles [i];
-					switchTile = true;
+					currentTile.destoryAllObjects (); // destorying all objects in current tile
+					currentTile = currentTiles [i]; // setting new current tile
+					switchTile = true; 
 				}
 			}
 

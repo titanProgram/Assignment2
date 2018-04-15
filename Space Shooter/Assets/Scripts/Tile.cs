@@ -65,7 +65,8 @@ public class Tile {
 		randomAsteriods ();
 		randomEnemies ();
 
-		displayTileBox ();
+
+		//displayTileBox ();
 	}
 
 	// Getters
@@ -248,7 +249,7 @@ public class Tile {
 		int randomNum = Random.Range (0, 4);
 
 		if (randomNum == 2) {
-			enemyType [0] = Resources.Load<GameObject> ("ufoRed");
+			enemyType [0] = Resources.Load<GameObject> ("Models/Enemies/Prefabs/ufoRed");
 			enemies [0] = enemyType [0];
 			loadEnemy = true;
 		} 
@@ -279,7 +280,12 @@ public class Tile {
 			GameObject.Destroy (asteroids [i]);
 		}
 		if (loadEnemy) {
-			GameObject.Destroy (enemies [0]);
+			if (enemies [0] == null) {
+				loadEnemy = false;
+			} 
+			else {
+				GameObject.Destroy (enemies [0]);
+			}
 		}
 	}
 

@@ -85,8 +85,6 @@ public class Enemy01 : MonoBehaviour, EnemyBehaviour {
 
 			Bullet b = new Bullet (bulletSpeed, bulletName, bulletName, bulletSpawnPoint.transform);
 
-
-
 			z += 30f;
 		}
 	}
