@@ -2,6 +2,7 @@
 Object Oriented Programming Assignment for College
 
 Simple 2D space shooter with an infinite procedural generating world. The objective is to kill and many UFOs before dying. All assets where obtained for free from https://opengameart.org/.
+
 ---
 ## MAIN FEATURES
 
