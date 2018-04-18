@@ -2,9 +2,9 @@
 Object Oriented Programming Assignment for College
 
 Simple 2D space shooter with an infinite procedural generating world. The objective is to kill and many UFOs before dying. All assets where obtained for free from https://opengameart.org/.
-
-## MAIN FEATURES
 ---
+## MAIN FEATURES
+
 ### World Generation
 The world is divided up into tiles. each tile has a number of game objects that it will store. When the player is is in a tile, all the game objects (enemies, asteroids, etc) will be loaded into the game and all game objects not in the players view will get removed from the game. The game objects in each tile are generated randomaly.
 
