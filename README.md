@@ -25,7 +25,8 @@ All ships have a Health component that I created. When they take damage their he
 #### Learning Outcomes
 During this assignment I learnt how to use an industry standard game engine and 2D procedural world generation
 
-## Where to download the game
 ---
+
+## Where to download the game
 Within the first three days my game has gotten 30+ downloads on the indie game website itch.io.
 >Link to my game: https://bobthecoderr.itch.io/space-shooter
