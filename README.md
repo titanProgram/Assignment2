@@ -5,6 +5,8 @@ Simple 2D space shooter with an infinite procedural generating world. The object
 
 ![alt text](https://github.com/titanProgram/Assignment2/raw/master/pic.png "Logo Title Text 1")
 
+![Watch gameplay video](https://plays.tv/video/5adf4966bcd93e4eaf/d)
+
 
 ---
 ## MAIN FEATURES
